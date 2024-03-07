@@ -1,0 +1,14 @@
+extends layout
+
+block content 
+    h1 Please log in 
+
+    form(action="/log-in", method="POST")
+        label(for="username") Username
+        input(type="text" name="username" required placeholder="John Doe")
+        
+        label(for="password") Password
+        input(type = "password" name = "password" required)
+        
+        
+        button(type="submit") Log In

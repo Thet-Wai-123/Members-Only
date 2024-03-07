@@ -1,0 +1,19 @@
+extends layout
+
+block content 
+    h1 Create an account 
+
+    form(action="/sign-up", method="POST")
+        label(for="email") Email 
+        input(type = "email" name="email" required placeholder = "example@gmail.com")
+
+        label(for="username") Username
+        input(type="text" name="username" required placeholder="John Doe")
+        
+        label(for="password") Password
+        input(type = "password" name = "password" required)
+        
+        label(for="confirm-password") Confirm Password
+        input(type = "passwrord" name = "confirm-password" required)
+        
+        button(type="submit") Log In
