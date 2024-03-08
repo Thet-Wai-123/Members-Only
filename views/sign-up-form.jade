@@ -16,4 +16,9 @@ block content
         label(for="confirm-password") Confirm Password
         input(type = "passwrord" name = "confirm-password" required)
         
-        button(type="submit") Log In
+        button(type="submit") Sign Up
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg

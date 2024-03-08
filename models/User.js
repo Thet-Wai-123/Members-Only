@@ -19,13 +19,12 @@ const User = new Schema({
     type: String,
     required: true,
   },
-  posts: [{ type: Schema.Types.ObjectId, ref: "Post", required: true }],
   membershipStatus: {
     type: String,
     required: true,
-    enum: ["Basic", "Premium", "Private"],
+    enum: ["Basic", "Private"],
     default: "Basic",
   },
 });
 
-module.exports(User);
+module.exports= mongoose.model("User", User);

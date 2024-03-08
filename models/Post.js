@@ -15,6 +15,11 @@ const Post = new Schema({
     type: String,
     required: true,
   },
+  postedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   postedTime: {
     type: Date,
     required: true,
@@ -22,4 +27,4 @@ const Post = new Schema({
   },
 });
 
-module.exports(Post);
+module.exports = mongoose.model("Post", Post);
