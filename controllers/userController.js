@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
+const passport = require("passport");
 
 exports.sign_up_GET = function (req, res, next) {
   res.render("sign-up-form");
@@ -14,11 +15,6 @@ exports.sign_up_POST = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    const user = new User({
-      email: req.body.email, //use oneOf to server side check that it's a vlaid mail
-      username: req.body.username,
-      password: req.body.password,
-    });
     if (!errors.isEmpty()) {
       // If there are validation errors, render the form again with errors
       res.render("sign-up-form", { errors: errors.array() });
@@ -36,12 +32,14 @@ exports.sign_up_POST = [
   }),
 ];
 
-
-
 exports.log_in_GET = function (req, res, next) {
   res.render("log-in-form");
 };
 
-exports.log_in_POST = asyncHandler(async (req, res, next) => {
+exports.log_in_POST = function (req, res, next){
+  passport.authenticate("local", {
+    successRedirect: "/club",
+    failureRedirect: "/log-in",
+  });
+}
 
-});

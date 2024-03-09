@@ -15,4 +15,6 @@ router.get("/log-in", user_controller.log_in_GET);
 
 router.post("/sign-up", user_controller.sign_up_POST);
 
+router.post("/log-in", user_controller.log_in_POST);
+
 module.exports = router;

@@ -3,11 +3,9 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+const passport = require("passport");
 require("dotenv").config();
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 
 
 var app = express();
@@ -23,8 +21,36 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+
+//set up session
+const session = require("express-session");
+app.use(
+  session({
+    secret: "cats",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    },
+  })
+);
+
+
+//setting up passport
+require("./config/passport")
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
+
+
+
+//setting up routes
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+var clubRouter = require("./routes/club");
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/club", clubRouter)
 
 
 // Set up mongoose connection
@@ -52,5 +78,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
 
 module.exports = app;
