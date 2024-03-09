@@ -6,8 +6,6 @@ var logger = require("morgan");
 const passport = require("passport");
 require("dotenv").config();
 
-
-
 var app = express();
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -20,7 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
 
 //set up session
 const session = require("express-session");
@@ -35,13 +32,12 @@ app.use(
   })
 );
 
-
 //setting up passport
-require("./config/passport")
+require("./config/passport");
+app.use;
+passport.initialize()
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-
-
 
 //setting up routes
 var indexRouter = require("./routes/index");
@@ -50,8 +46,7 @@ var clubRouter = require("./routes/club");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/club", clubRouter)
-
+app.use("/club", clubRouter);
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -78,6 +73,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
 
 module.exports = app;
