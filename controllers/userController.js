@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const passport = require("passport");
+const LocalStrategy = require('passport-local').Strategy;
 
 exports.sign_up_GET = function (req, res, next) {
   res.render("sign-up-form");
@@ -36,9 +37,10 @@ exports.log_in_GET = function (req, res, next) {
   res.render("log-in-form");
 };
 
+
 exports.log_in_POST = function (req, res, next){
   passport.authenticate("local", {
-    successRedirect: "/club",
+    successRedirect: "/",
     failureRedirect: "/log-in",
   });
 }
