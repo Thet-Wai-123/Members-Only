@@ -24,7 +24,7 @@ const session = require("express-session");
 app.use(
   session({
     secret: "cats",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
@@ -34,19 +34,15 @@ app.use(
 
 //setting up passport
 require("./config/passport");
-app.use;
-passport.initialize()
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 //setting up routes
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var clubRouter = require("./routes/club");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/club", clubRouter);
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -71,7 +67,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error.jade");
 });
 
 module.exports = app;
