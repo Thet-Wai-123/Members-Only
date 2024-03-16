@@ -1,5 +1,30 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  if user 
+    p You have successfully logged in!
+    p welcome #{user.username}
+
+    if user.membershipStatus === "Private"
+      form(action="/post-form", method="GET")
+        button(type="submit") Make a New Post
+  
+    if posts
+      each post in posts
+        h Title: #{post.title} 
+        <br />
+        h Content: #{post.content}
+        <br />
+        <br />
+
+    form(action="/log-out", method="POST")
+      button(type="submit") Log Out
+
+  else 
+    p Welcome to ClubHouse. Please log in, and otherwise if you don't have an account, please sign up.
+
+    p Click the button below to sign up:
+
+    a(href='/sign-up') Sign Up
+    a(href='/log-in') Log In
+    
