@@ -20,6 +20,16 @@ router.use(
   })
 );
 
+router.use("/", function (req, res, next) {
+  if (req.isAuthenticated()) {
+    //checks whether user
+    //is authenticated by the passport.authenticate() method
+    console.log("user is logged in")
+    next();
+  }
+  next();
+});
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index.jade");
